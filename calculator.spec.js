@@ -1,4 +1,4 @@
-const calculator = require('./calculator');
+const calculator = require("./calculator");
 
 describe("add", () => {
   test("works", () => {
@@ -33,5 +33,20 @@ describe("divide", () => {
   });
   test("works", () => {
     expect(calculator.divide(16, 2)).toEqual(8);
+  });
+});
+
+describe("operate calculator", () => {
+  test("works", () => {
+    expect(calculator.operateCalculator(1, 2, "add")).toEqual(3);
+  });
+  test("works", () => {
+    expect(calculator.operateCalculator(15, 2, "subtract")).toEqual(13);
+  });
+  test("works", () => {
+    expect(calculator.operateCalculator(3, 4, "multiply")).toEqual(12);
+  });
+  test("works", () => {
+    expect(calculator.operateCalculator(8, 2, "divide")).toEqual(4);
   });
 });
