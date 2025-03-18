@@ -21,3 +21,17 @@ div,
     font-weight: 700;
     font-size: 36;
 }
+
+.button-grid {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+}
+
+#calculator-Button {
+    background-color: #4a4d50;
+    color: black;
+    padding: 4px;
+    border: solid, black;
+    border-radius: 4px;
+}
