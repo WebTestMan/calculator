@@ -1,0 +1,23 @@
+body,
+div,
+.title,
+.calculator-main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-family: "Courier New", Courier, monospace;
+  padding: 8px;
+
+}
+
+.calculator-main {
+    text-align: center;
+    background-color: #334455;
+    color: #d5a91a;
+}
+
+
+#title {
+    font-weight: 700;
+    font-size: 36;
+}
