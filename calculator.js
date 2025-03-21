@@ -10,6 +10,7 @@ let rightButtonInput = "";
 let operationInput;
 let leftSideInput = true;
 const operationButtonArray = ["+", "-", "*", "/"];
+const buttonInputArray = [];
 
 add = (num1, num2) => num1 + num2;
 
@@ -36,13 +37,7 @@ operate = (leftButtonInput, rightButtonInput, operationInput) => {
 };
 
 const calculatorButtonList = document.querySelectorAll(".calculator-Button");
-
-// buttons is a node list. It looks and acts much like an array.
-// const buttons = document.querySelectorAll("button");
-console.log(calculatorButtonList);
-// we use the .forEach method to iterate through each button
 calculatorButtonList.forEach((button) => {
-  // and for each one we add a 'click' listener
   button.addEventListener("click", () => {
     captureButtonInput(button.innerHTML);
   });
@@ -54,18 +49,35 @@ captureButtonInput = (buttonPressed) => {
     windowDisplayText.innerText = "";
     leftButtonInput = "";
     rightButtonInput = "";
+    operationInput = "";
     leftSideInput = true;
   } else if (buttonPressed === equalButtonText) {
-    windowDisplayText.innerText = operate(
+    calculationResult = operate(
       Number(leftButtonInput),
       Number(rightButtonInput),
-      operatorButton
+      operationInput
     );
-    leftButtonInput = "";
+    windowDisplayText.innerText = calculationResult;
+    leftButtonInput = calculationResult;
     rightButtonInput = "";
+    operationInput = "";
+    console.log(operationInput);
+    calculationResult = "";
+    console.log(calculationResult);
     leftSideInput = true;
   } else if (operationButtonArray.includes(buttonPressed)) {
-    operatorButton = buttonPressed;
+    if (operationInput) {
+      calculationResult = operate(
+        Number(leftButtonInput),
+        Number(rightButtonInput),
+        operationInput
+      );
+      windowDisplayText.innerText = calculationResult;
+      leftButtonInput = calculationResult;
+      rightButtonInput = "";
+      calculationResult = "";
+    }
+    operationInput = buttonPressed;
     console.log(`The operation button pressed is ' ${buttonPressed} '.`);
     windowDisplayText.innerText += buttonPressed;
     leftSideInput = false;
@@ -80,7 +92,7 @@ captureButtonInput = (buttonPressed) => {
       rightButtonInput += buttonPressed;
       windowDisplayText.innerText += buttonPressed;
       console.log(
-        `The number button pressed was ${buttonPressed}, the current left side input is ${rightButtonInput}`
+        `The number button pressed was ${buttonPressed}, the current right side input is ${rightButtonInput}`
       );
     }
   }
