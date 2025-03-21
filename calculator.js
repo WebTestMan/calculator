@@ -1,12 +1,15 @@
-let input1;
-let input2;
-let operationInput;
 const displayWindow = document.querySelector(".display-window");
 let windowDisplayText = document.createElement("p");
 windowDisplayText.setAttribute("class", "display-text");
 windowDisplayText.innerText = "";
 displayWindow.appendChild(windowDisplayText);
 const clearButtonText = "C";
+const equalButtonText = "=";
+let leftButtonInput = "";
+let rightButtonInput = "";
+let operationInput;
+let leftSideInput = true;
+const operationButtonArray = ["+", "-", "*", "/"];
 
 add = (num1, num2) => num1 + num2;
 
@@ -16,16 +19,19 @@ multiply = (num1, num2) => num1 * num2;
 
 divide = (num1, num2) => num1 / num2;
 
-operate = (input1, input2, operationInput) => {
+operate = (leftButtonInput, rightButtonInput, operationInput) => {
+  console.log(
+    `The operation is ${leftButtonInput} ${operationInput} ${rightButtonInput}`
+  );
   switch (operationInput) {
-    case "add":
-      return add(input1, input2);
-    case "subtract":
-      return subtract(input1, input2);
-    case "multiply":
-      return multiply(input1, input2);
-    case "divide":
-      return divide(input1, input2);
+    case "+":
+      return add(leftButtonInput, rightButtonInput);
+    case "-":
+      return subtract(leftButtonInput, rightButtonInput);
+    case "*":
+      return multiply(leftButtonInput, rightButtonInput);
+    case "/":
+      return divide(leftButtonInput, rightButtonInput);
   }
 };
 
@@ -46,16 +52,39 @@ captureButtonInput = (buttonPressed) => {
   console.log("the button pressed was " + buttonPressed);
   if (buttonPressed === clearButtonText) {
     windowDisplayText.innerText = "";
+    leftButtonInput = "";
+    rightButtonInput = "";
+    leftSideInput = true;
+  } else if (buttonPressed === equalButtonText) {
+    windowDisplayText.innerText = operate(
+      Number(leftButtonInput),
+      Number(rightButtonInput),
+      operatorButton
+    );
+    leftButtonInput = "";
+    rightButtonInput = "";
+    leftSideInput = true;
+  } else if (operationButtonArray.includes(buttonPressed)) {
+    operatorButton = buttonPressed;
+    console.log(`The operation button pressed is ' ${buttonPressed} '.`);
+    windowDisplayText.innerText += buttonPressed;
+    leftSideInput = false;
   } else {
-    windowDisplayText.innerText += " " + buttonPressed;
+    if (leftSideInput === true) {
+      leftButtonInput += buttonPressed;
+      windowDisplayText.innerText += buttonPressed;
+      console.log(
+        `The number button pressed was ${buttonPressed}, the current left side input is ${leftButtonInput}`
+      );
+    } else {
+      rightButtonInput += buttonPressed;
+      windowDisplayText.innerText += buttonPressed;
+      console.log(
+        `The number button pressed was ${buttonPressed}, the current left side input is ${rightButtonInput}`
+      );
+    }
   }
 };
-
-// the JavaScript file
-// METHODS 2 & 3
-function alertFunction(input1) {
-  alert("YAY! YOU DID IT! " + input1);
-}
 
 // module.exports = {
 //   add,
